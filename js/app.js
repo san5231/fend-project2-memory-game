@@ -29,7 +29,10 @@ function display(element){
 	element.classList.add("open","show");
 }
 
-
+function openCard(...arg){
+	let openedCards = [];
+	openedCards.push(arg);
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:

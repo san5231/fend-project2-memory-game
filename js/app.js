@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards = [];
+let cards = document.querySelectorAll(".card");
 
 /*
  * Display the cards on the page
@@ -25,7 +25,12 @@ function shuffle(array) {
     return array;
 }
 
-document.querySelector(".card").addEventListener("click", show)
+function display(element){
+	element.classList.add("open","show");
+}
+
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

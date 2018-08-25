@@ -30,9 +30,8 @@ function display(element){
 }
 
 let openedCards = [];
-function openCard(card1, card2){
-	openedCards.push(card1);
-	openedCards.push(card2);
+function openCard(...cards){
+	openedCards.push(...cards);
 }
 
 let cardsAreMatch = false;
@@ -67,6 +66,13 @@ cards.forEach(function(card){
 		display(card);
 	});
 })
+
+let modal = document.getElementById('congrads');
+function gameWon() {
+	if(openedCards === 16) {
+		modal.style.display = "block";
+	}
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

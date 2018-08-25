@@ -52,6 +52,15 @@ function removeDisplay(element){
 	element.classList.remove("open","show");
 }
 
+let count = 0;
+function counter(bool) {
+	if(bool === true){
+		count++;
+	}
+	else{
+		count = count;
+	}
+}
 
 cards.forEach(function(card){
 	card.addEventListener("click", function(e){

@@ -29,10 +29,26 @@ function display(element){
 	element.classList.add("open","show");
 }
 
-function openCard(...arg){
-	let openedCards = [];
-	openedCards.push(arg);
+let openedCards = [];
+function openCard(card1, card2){
+	openedCards.push(card1);
+	openedCards.push(card2);
 }
+
+let cardsAreMatch = false;
+function compareCards(openCardList) {
+	if(openCardList === 2){
+		if(openCardList[0] === openCardList[1]){
+			cardsAreMatch = true;
+		}
+		else{
+			cardsAreMatch = false;
+		}
+	}
+	return cardsAreMatch;
+}
+
+
 
 cards.forEach(function(card){
 	card.addEventListener("click", function(e){

@@ -48,6 +48,9 @@ function compareCards(openCardList) {
 	return cardsAreMatch;
 }
 
+function removeDisplay(element){
+	element.classList.remove("open","show");
+}
 
 
 cards.forEach(function(card){

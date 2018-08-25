@@ -1,7 +1,22 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards = document.querySelectorAll(".card");
+let cards = ["<li class="card"><i class="fa fa-diamond"></i></li>",
+			"<li class="card"><i class="fa fa-diamond"></i></li>",
+			"<li class="card"><i class="fa fa-paper-plane-o"></i></li>",
+			"<li class="card"><i class="fa fa-paper-plane-o"></i></li>",
+			"<li class="card"><i class="fa fa-anchor"></i></li>".
+			"<li class="card"><i class="fa fa-anchor"></i></li>",
+			"<li class="card"><i class="fa fa-bolt"></i></li>",
+			"<li class="card"><i class="fa fa-bolt"></i></li>",
+			"<li class="card"><i class="fa fa-cube"></i></li>",
+			"<li class="card"><i class="fa fa-cube"></i></li>",
+			"<li class="card"><i class="fa fa-leaf"></i></li>",
+			"<li class="card"><i class="fa fa-leaf"></i></li>",
+			"<li class="card"><i class="fa fa-bicycle"></i></li>",
+			"<li class="card"><i class="fa fa-bicycle"></i></li>",
+			"<li class="card"><i class="fa fa-bomb"></i></li>",
+			"<li class="card"><i class="fa fa-bomb"></i></li>"]
 
 /*
  * Display the cards on the page
@@ -9,6 +24,21 @@ let cards = document.querySelectorAll(".card");
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+/* 
+
+function clearDeck(){
+	for (let i = 0; i < cards.length; i++){
+		deck.removeChild(cards[i]);
+	}
+}
+*/
+let deck = document.querySelector(".deck");
+function displayDeck(){
+	shuffle(cards);
+ 	cards.forEach(function(card){
+ 		deck.appendChild(card);
+ 	});
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {

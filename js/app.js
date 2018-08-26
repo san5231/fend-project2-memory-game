@@ -1,22 +1,24 @@
 /*
  * Create a list that holds all of your cards
  */
-let cards = ["<li class="card"><i class="fa fa-diamond"></i></li>",
-			"<li class="card"><i class="fa fa-diamond"></i></li>",
-			"<li class="card"><i class="fa fa-paper-plane-o"></i></li>",
-			"<li class="card"><i class="fa fa-paper-plane-o"></i></li>",
-			"<li class="card"><i class="fa fa-anchor"></i></li>".
-			"<li class="card"><i class="fa fa-anchor"></i></li>",
-			"<li class="card"><i class="fa fa-bolt"></i></li>",
-			"<li class="card"><i class="fa fa-bolt"></i></li>",
-			"<li class="card"><i class="fa fa-cube"></i></li>",
-			"<li class="card"><i class="fa fa-cube"></i></li>",
-			"<li class="card"><i class="fa fa-leaf"></i></li>",
-			"<li class="card"><i class="fa fa-leaf"></i></li>",
-			"<li class="card"><i class="fa fa-bicycle"></i></li>",
-			"<li class="card"><i class="fa fa-bicycle"></i></li>",
-			"<li class="card"><i class="fa fa-bomb"></i></li>",
-			"<li class="card"><i class="fa fa-bomb"></i></li>"]
+let cards = [
+  '<li class="card"><i class="fa fa-diamond"></i></li>',
+  '<li class="card"><i class="fa fa-diamond"></i></li>',
+  '<li class="card"><i class="fa fa-paper-plane-o"></i></li>',
+  '<li class="card"><i class="fa fa-paper-plane-o"></i></li>',
+  '<li class="card"><i class="fa fa-anchor"></i></li>',
+  '<li class="card"><i class="fa fa-anchor"></i></li>',
+  '<li class="card"><i class="fa fa-bolt"></i></li>',
+  '<li class="card"><i class="fa fa-bolt"></i></li>',
+  '<li class="card"><i class="fa fa-cube"></i></li>',
+  '<li class="card"><i class="fa fa-cube"></i></li>',
+  '<li class="card"><i class="fa fa-leaf"></i></li>',
+  '<li class="card"><i class="fa fa-leaf"></i></li>',
+  '<li class="card"><i class="fa fa-bicycle"></i></li>',
+  '<li class="card"><i class="fa fa-bicycle"></i></li>',
+  '<li class="card"><i class="fa fa-bomb"></i></li>',
+  '<li class="card"><i class="fa fa-bomb"></i></li>'
+];
 
 /*
  * Display the cards on the page
@@ -24,84 +26,78 @@ let cards = ["<li class="card"><i class="fa fa-diamond"></i></li>",
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-/* 
 
-function clearDeck(){
-	for (let i = 0; i < cards.length; i++){
-		deck.removeChild(cards[i]);
-	}
-}
-*/
 let deck = document.querySelector(".deck");
-function displayDeck(){
-	shuffle(cards);
- 	cards.forEach(function(card){
- 		deck.appendChild(card);
- 	});
+function displayDeck() {
+  shuffle(cards);
+  cards.map(function(card) {
+    deck.innerHTML = cards.join("");
+  });
 }
-
+displayDeck();
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
-function display(element){
-	element.classList.add("open","show");
+function display(element) {
+  element.classList.add("open", "show");
 }
 
 let openedCards = [];
-function openCard(...cards){
-	openedCards.push(...cards);
+function openCard(...cards) {
+  openedCards.push(...cards);
 }
 
 let cardsAreMatch = false;
 function compareCards(openCardList) {
-	if(openCardList === 2){
-		if(openCardList[0] === openCardList[1]){
-			cardsAreMatch = true;
-		}
-		else{
-			cardsAreMatch = false;
-		}
-	}
-	return cardsAreMatch;
+  if (openCardList === 2) {
+    if (openCardList[0] === openCardList[1]) {
+      cardsAreMatch = true;
+    } else {
+      cardsAreMatch = false;
+    }
+  }
+  return cardsAreMatch;
 }
 
-function removeDisplay(element){
-	element.classList.remove("open","show");
+function removeDisplay(element) {
+  element.classList.remove("open", "show");
 }
 
 let count = 0;
 function counter(bool) {
-	if(bool === true){
-		count++;
-	}
-	else{
-		count = count;
-	}
+  if (bool === true) {
+    count++;
+  } else {
+    count = count;
+  }
 }
 
-cards.forEach(function(card){
-	card.addEventListener("click", function(e){
-		display(card);
-	});
-})
+let allCards = document.querySelectorAll(".card");
+allCards.forEach(function(card) {
+  card.addEventListener("click", function(e) {
+    display(card);
+  });
+});
 
-let modal = document.getElementById('congrads');
+let modal = document.getElementById("congrads");
 function gameWon() {
-	if(openedCards === 16) {
-		modal.style.display = "block";
-	}
+  if (openedCards === 16) {
+    modal.style.display = "block";
+  }
 }
 /*
  * set up the event listener for a card. If a card is clicked:

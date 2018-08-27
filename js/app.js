@@ -62,9 +62,9 @@ function openCard(...cards) {
 }
 
 let cardsAreMatch = false;
-function compareCards(openCardList) {
-  if (openCardList === 2) {
-    if (openCardList[0] === openCardList[1]) {
+function compareCards(matchList) {
+  if (matchList === 2) {
+    if (matchList[0] === matchList[1]) {
       cardsAreMatch = true;
     } else {
       cardsAreMatch = false;
@@ -89,7 +89,11 @@ function counter(bool) {
 let allCards = document.querySelectorAll(".card");
 allCards.forEach(function(card) {
   card.addEventListener("click", function(e) {
-    display(card);
+    if (compareCards) {
+      display(card);
+    } else {
+      removeDisplay(card);
+    }
   });
 });
 

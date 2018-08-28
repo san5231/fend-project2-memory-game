@@ -57,13 +57,13 @@ function display(element) {
 }
 
 let openedCards = [];
-function openCard(...cards) {
-  openedCards.push(...cards);
+function openCard(card) {
+  openedCards.push(card);
 }
 
 let cardsAreMatch = false;
 function compareCards(matchList) {
-  if (matchList === 2) {
+  if (matchList.length === 2) {
     if (matchList[0] === matchList[1]) {
       cardsAreMatch = true;
     } else {
@@ -87,12 +87,21 @@ function counter(bool) {
 }
 
 let allCards = document.querySelectorAll(".card");
+
 allCards.forEach(function(card) {
   card.addEventListener("click", function(e) {
-    if (compareCards) {
+    if (!card.classList.contains("open") || !card.classList.contains("show")) {
+      openCard(card);
       display(card);
-    } else {
-      removeDisplay(card);
+      if (openedCards.length == 2) {
+        setTimeout(function() {
+          openedCards.forEach(function(card) {
+            removeDisplay(card);
+          });
+          openedCards = [];
+        }, 1000);
+      } else {
+      }
     }
   });
 });

@@ -63,18 +63,19 @@ function openCard(card) {
 
 let cardsAreMatch = false;
 function compareCards(matchList) {
-  if (matchList.length === 2) {
-    if (matchList[0] === matchList[1]) {
-      cardsAreMatch = true;
-    } else {
-      cardsAreMatch = false;
-    }
+  for (let i = 0; i < matchList.length; i++) {
+    if (matchList[0] != matchList[1]) {
+      return (cardsAreMatch = false);
+    } else return (cardsAreMatch = true);
   }
-  return cardsAreMatch;
 }
 
 function removeDisplay(element) {
   element.classList.remove("open", "show");
+}
+
+function cardMatch(element) {
+  element.classList.add("match");
 }
 
 let count = 0;
@@ -90,17 +91,29 @@ let allCards = document.querySelectorAll(".card");
 
 allCards.forEach(function(card) {
   card.addEventListener("click", function(e) {
-    if (!card.classList.contains("open") || !card.classList.contains("show")) {
+    if (
+      !card.classList.contains("open") ||
+      !card.classList.contains("show") ||
+      !card.classList.contains("match")
+    ) {
       openCard(card);
       display(card);
+      console.log(openedCards);
       if (openedCards.length == 2) {
-        setTimeout(function() {
+        compareCards(openedCards);
+        console.log(cardsAreMatch);
+        if (cardsAreMatch === false) {
+          setTimeout(function() {
+            openedCards.forEach(function(card) {
+              removeDisplay(card);
+            });
+            openedCards = [];
+          }, 1000);
+        } else if (cardsAreMatch === true) {
           openedCards.forEach(function(card) {
-            removeDisplay(card);
+            cardMatch(card);
           });
-          openedCards = [];
-        }, 1000);
-      } else {
+        }
       }
     }
   });

@@ -63,10 +63,13 @@ function openCard(card) {
 
 let cardsAreMatch = false;
 function compareCards(matchList) {
-  for (let i = 0; i < matchList.length; i++) {
-    if (matchList[0] != matchList[1]) {
-      return (cardsAreMatch = false);
-    } else return (cardsAreMatch = true);
+  if (
+    matchList[0].children[0].classList[1] ==
+    matchList[1].children[0].classList[1]
+  ) {
+    return (cardsAreMatch = true);
+  } else {
+    return (cardsAreMatch = false);
   }
 }
 
@@ -98,21 +101,19 @@ allCards.forEach(function(card) {
     ) {
       openCard(card);
       display(card);
-      console.log(openedCards);
       if (openedCards.length == 2) {
         compareCards(openedCards);
-        console.log(cardsAreMatch);
-        if (cardsAreMatch === false) {
+        if (cardsAreMatch == true) {
+          openedCards[0].classList.add("match");
+          openedCards[1].classList.add("match");
+          openedCards = [];
+        } else {
           setTimeout(function() {
             openedCards.forEach(function(card) {
               removeDisplay(card);
             });
             openedCards = [];
           }, 1000);
-        } else if (cardsAreMatch === true) {
-          openedCards.forEach(function(card) {
-            cardMatch(card);
-          });
         }
       }
     }

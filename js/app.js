@@ -90,6 +90,24 @@ function counter(bool) {
   }
 }
 
+let minute = 0;
+let second = 0;
+let timer;
+
+function startTimer() {
+  timer = setInterval(function() {
+    second++;
+    if (second == 60) {
+      minute++;
+      second = 0;
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
+}
+
 let allCards = document.querySelectorAll(".card");
 
 allCards.forEach(function(card) {

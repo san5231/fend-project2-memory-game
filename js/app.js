@@ -60,15 +60,14 @@ function display(card) {
   }
 }
 
-let cardsAreMatch = false;
 function compareCards(matchList) {
   if (
     matchList[0].children[0].classList[1] ==
     matchList[1].children[0].classList[1]
   ) {
-    return (cardsAreMatch = true);
+    return true;
   } else {
-    return (cardsAreMatch = false);
+    return false;
   }
 }
 
@@ -99,16 +98,15 @@ function gameWon() {
   } else return false;
 }
 
-let twoStars = 16;
-let oneStars = 32;
+let twoStars = 3;
+let oneStar = 5;
 let stars = document.querySelector(".stars");
-let star = document.querySelector("li");
 let moves = 0;
 let movesCountDisplay = document.querySelector(".moves");
 function moveCounter() {
   movesCountDisplay.innerHTML = moves;
-  if (moves === twoStars || moves === oneStars) {
-    stars.removeChild(star);
+  if (moves === twoStars || moves === oneStar) {
+    stars.removeChild(stars.children[0]);
   }
 }
 
@@ -160,15 +158,15 @@ allCards.forEach(function(card) {
         display(card);
       } else if (openedCards.length == 1) {
         display(card);
-        compareCards(openedCards);
+
         moves++;
         moveCounter();
-        if (cardsAreMatch == true) {
+        if (compareCards(openedCards)) {
           setCardMatch();
         } else {
           setTimeout(function() {
             removeDisplay();
-          }, 1000);
+          }, 800);
         }
       }
     }

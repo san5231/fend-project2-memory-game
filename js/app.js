@@ -52,13 +52,10 @@ function shuffle(array) {
   return array;
 }
 
+let openedCards = [];
 function display(element) {
   element.classList.add("open", "show");
-}
-
-let openedCards = [];
-function openCard(card) {
-  openedCards.push(card);
+  openedCards.push(element);
 }
 
 let cardsAreMatch = false;
@@ -73,12 +70,20 @@ function compareCards(matchList) {
   }
 }
 
-function removeDisplay(element) {
-  element.classList.remove("open", "show");
+function removeDisplay() {
+  openedCards.forEach(function(card) {
+    card.classList.remove("open", "show");
+  });
+  openedCards = [];
 }
 
-function cardMatch(element) {
-  element.classList.add("match");
+let matchCards = 0;
+function setCardMatch() {
+  openedCards.forEach(function(card) {
+    card.classList.add("match");
+  });
+  openedCards = [];
+  matchCards += 2;
 }
 
 let count = 0;
@@ -134,23 +139,29 @@ allCards.forEach(function(card) {
       !card.classList.contains("show") ||
       !card.classList.contains("match")
     ) {
-      openCard(card);
-      display(card);
-      if (openedCards.length == 2) {
+      if (openedCards.length == 0) {
+        display(card);
+      } else if (openedCards.length == 1) {
+        display(card);
         compareCards(openedCards);
         if (cardsAreMatch == true) {
-          openedCards[0].classList.add("match");
-          openedCards[1].classList.add("match");
-          openedCards = [];
+          setCardMatch();
         } else {
           setTimeout(function() {
-            openedCards.forEach(function(card) {
-              removeDisplay(card);
-            });
-            openedCards = [];
+            removeDisplay();
           }, 1000);
         }
       }
+      /*if (openedCards.length == 2) {
+        compareCards(openedCards);
+        if (cardsAreMatch == true) {
+          setCardMatch();
+        } else {
+          setTimeout(function() {
+            removeDisplay();
+          }, 1000);
+        }
+      }*/
     }
   });
 });

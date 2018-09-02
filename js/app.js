@@ -94,24 +94,41 @@ let minute = 0;
 let second = 0;
 let timer;
 
+let showTimer = document.querySelector(".Timer");
+
+let gameStart = false;
 function startTimer() {
-  timer = setInterval(function() {
-    second++;
-    if (second == 60) {
-      minute++;
-      second = 0;
-    }
-  }, 1000);
+  if (gameStart == false) {
+    timer = setInterval(function() {
+      second++;
+      if (second == 60) {
+        minute++;
+        second = 0;
+      }
+      showTimer.innerHTML = formatTime();
+    }, 1000);
+  }
+  gameStart = true;
 }
 
 function stopTimer() {
   clearInterval(timer);
+  showTimer.innerHTML = "00:00";
+}
+
+let displayTimer = ``;
+function formatTime() {
+  let sec = second > 9 ? String(second) : "0" + String(second);
+  let min = minute > 9 ? String(minute) : "0" + String(minute);
+  displayTimer = `${min}:${sec}`;
+  return displayTimer;
 }
 
 let allCards = document.querySelectorAll(".card");
 
 allCards.forEach(function(card) {
   card.addEventListener("click", function(e) {
+    startTimer();
     if (
       !card.classList.contains("open") ||
       !card.classList.contains("show") ||

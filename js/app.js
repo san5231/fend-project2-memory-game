@@ -53,9 +53,11 @@ function shuffle(array) {
 }
 
 let openedCards = [];
-function display(element) {
-  element.classList.add("open", "show");
-  openedCards.push(element);
+function display(card) {
+  if (!card.classList.contains("open")) {
+    card.classList.add("open", "show");
+    openedCards.push(card);
+  }
 }
 
 let cardsAreMatch = false;
@@ -84,14 +86,29 @@ function setCardMatch() {
   });
   openedCards = [];
   matchCards += 2;
+  if (gameWon()) {
+    stopTimer();
+    modal.style.display = "block";
+  }
 }
 
-let count = 0;
-function counter(bool) {
-  if (bool === true) {
-    count++;
-  } else {
-    count = count;
+let modal = document.getElementById("congrads");
+function gameWon() {
+  if (matchCards === 16) {
+    return true;
+  } else return false;
+}
+
+let twoStars = 16;
+let oneStars = 32;
+let stars = document.querySelector(".stars");
+let star = document.querySelector("li");
+let moves = 0;
+let movesCountDisplay = document.querySelector(".moves");
+function moveCounter() {
+  movesCountDisplay.innerHTML = moves;
+  if (moves === twoStars || moves === oneStars) {
+    stars.removeChild(star);
   }
 }
 
@@ -144,6 +161,8 @@ allCards.forEach(function(card) {
       } else if (openedCards.length == 1) {
         display(card);
         compareCards(openedCards);
+        moves++;
+        moveCounter();
         if (cardsAreMatch == true) {
           setCardMatch();
         } else {
@@ -152,26 +171,10 @@ allCards.forEach(function(card) {
           }, 1000);
         }
       }
-      /*if (openedCards.length == 2) {
-        compareCards(openedCards);
-        if (cardsAreMatch == true) {
-          setCardMatch();
-        } else {
-          setTimeout(function() {
-            removeDisplay();
-          }, 1000);
-        }
-      }*/
     }
   });
 });
 
-let modal = document.getElementById("congrads");
-function gameWon() {
-  if (openedCards === 16) {
-    modal.style.display = "block";
-  }
-}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

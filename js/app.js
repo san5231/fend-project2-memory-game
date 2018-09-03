@@ -78,6 +78,13 @@ function removeDisplay() {
   openedCards = [];
 }
 
+let modal = document.getElementById("congrads");
+function gameWon() {
+  if (matchCards === 16) {
+    return true;
+  } else return false;
+}
+
 let matchCards = 0;
 function setCardMatch() {
   openedCards.forEach(function(card) {
@@ -91,22 +98,32 @@ function setCardMatch() {
   }
 }
 
-let modal = document.getElementById("congrads");
-function gameWon() {
-  if (matchCards === 16) {
-    return true;
-  } else return false;
-}
-
 let twoStars = 3;
 let oneStar = 5;
-let stars = document.querySelector(".stars");
+let stars = document.querySelectorAll(".fa-star");
 let moves = 0;
-let movesCountDisplay = document.querySelector(".moves");
+let starNum = 3;
+let movesCountDisplay = document.querySelectorAll(".moves");
+let starNumDisplay = document.querySelector(".star-num");
 function moveCounter() {
-  movesCountDisplay.innerHTML = moves;
-  if (moves === twoStars || moves === oneStar) {
-    stars.removeChild(stars.children[0]);
+  movesCountDisplay.forEach(function(move) {
+    move.innerText = moves;
+  });
+  if (moves === twoStars) {
+    stars[0].classList.replace("fa-star", "fa-star-o");
+    starNum--;
+    starNumDisplay.innerText = starNum;
+  } else if (moves === oneStar) {
+    stars[1].classList.replace("fa-star", "fa-star-o");
+    starNum--;
+    starNumDisplay.innerText = starNum;
+  }
+}
+function resetStars() {
+  starNum = 3;
+  starNumDisplay.innerText = starNum;
+  for (let i = 0; i < 3; i++) {
+    stars[i].classList.replace("fa-star-o", "fa-star");
   }
 }
 
@@ -114,7 +131,7 @@ let minute = 0;
 let second = 0;
 let timer;
 
-let showTimer = document.querySelector(".Timer");
+let showTimer = document.querySelectorAll(".Timer");
 
 let gameStart = false;
 function startTimer() {
@@ -125,7 +142,9 @@ function startTimer() {
         minute++;
         second = 0;
       }
-      showTimer.innerHTML = formatTime();
+      showTimer.forEach(function(timer) {
+        timer.innerText = formatTime();
+      });
     }, 1000);
   }
   gameStart = true;
@@ -142,6 +161,18 @@ function formatTime() {
   let min = minute > 9 ? String(minute) : "0" + String(minute);
   displayTimer = `${min}:${sec}`;
   return displayTimer;
+}
+
+function resetGame() {
+  openedCards = [];
+  matchCards = 0;
+  moves = 0;
+  showTimer.forEach(function(timer) {
+    timer.innerText = "00:00";
+  });
+  moveCounter();
+  displayDeck();
+  starNum = 3;
 }
 
 let allCards = document.querySelectorAll(".card");

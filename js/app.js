@@ -201,7 +201,7 @@ function stopTimer() {
   second = 0;
   minute = 0;
   showTimer.forEach(function(timer) {
-    timer.innerHTML = "00:00";
+    timer.innerText = "00:00";
   });
 }
 
@@ -219,6 +219,7 @@ function resetGame() {
   openedCards = [];
   matchCards = 0;
   moves = 0;
+  gameStart = false;
   stopTimer();
   moveCounter();
   displayDeck();
